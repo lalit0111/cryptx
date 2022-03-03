@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+$primary-color: #059669;
+$primary-light-color: #ecfdf5;
+$primary-dark: #334155;
+$button-radius: 3px;
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+body {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  color: $primary-dark;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  padding-left: 10px;
+  background-color: $primary-light-color;
+
+  .logo {
+    align-items: start;
+    font-size: 26px;
+    font-weight: 700;
+
+    span {
+      font-size: 30px;
+      color: $primary-color;
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-right: 60px;
+
+    .currency-menu {
+      display: flex;
+      font-size: 12px;
+      font-weight: 600;
+      color: $primary-color;
+      border-radius: $button-radius;
+      border: solid 1px $primary-color;
+      gap: 5px;
+      margin-right: 20px;
+      padding: 5px 10px;
+      align-items: center;
+    }
+
+    .register-btn {
+      background-color: $primary-color;
+      color: #fff;
+      border-radius: $button-radius;
+      padding: 8px 24px;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .login-btn {
+      background-color: transparent;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: $primary-color;
+    }
+  }
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  letter-spacing: -1px;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.tagline {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+// .coin-holder {
+//   display: flex;
+//   background-color: $primary-light-color;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 50px 100px;
+//   margin-top: 40px;
+// }
+
+.slider-container {
+  background-color: $primary-light-color;
+}
+.slick-list {
+  margin: 40px 200px;
+}
+
+.slick-prev {
+  width: 44px !important;
+  height: 44px !important;
+  left: 10% !important;
+  z-index: 1;
+}
+.slick-next {
+  width: 44px !important;
+  height: 44px !important;
+  right: 10% !important;
+  z-index: 1;
+}
+
+.single-coin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $primary-light-color;
+  padding: 50px 0;
+
+  img {
+    height: 70px;
+    width: 70px;
+  }
+
+  p {
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 500;
+
+    span {
+      font-weight: 700;
+      color: $primary-color;
+    }
+  }
+
+  .price {
+    margin-top: 5px;
+    font-weight: 700;
+  }
+}
