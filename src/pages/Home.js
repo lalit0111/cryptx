@@ -77,37 +77,46 @@ const Home = () => {
 
       <h2>Cryptocurrency Prices By Market Cap</h2>
 
-      <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-search"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="#2c3e50"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <circle cx="10" cy="10" r="7" />
-          <line x1="21" y1="21" x2="15" y2="15" />
-        </svg>
+      <div className="search-bar">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-search"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#2c3e50"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+          </svg>
 
-        <p>Search For Crypto-currency </p>
+          <input placeholder="Search For Crypto-currency" />
+        </div>
       </div>
 
-      <div>
-        <p>#</p>
-        <p>Coin</p>
-        <p>Price</p>
-        <p>1h</p>
-        <p>24h</p>
-        <p>Market Cap.</p>
+      <div className="desc-bar">
+        <div>
+          <p>#</p>
+          <p>Coin</p>
+        </div>
+        <div>
+          <p>Price</p>
+          <p>1h</p>
+          <p>24h</p>
+          <p>Market Capital</p>
+        </div>
       </div>
-
-      <ol>
+      <ol className="coin-info-item">
+        <CoinInfoItem />
+        <CoinInfoItem />
+        <CoinInfoItem />
+        <CoinInfoItem />
         <CoinInfoItem />
         <CoinInfoItem />
         <CoinInfoItem />
