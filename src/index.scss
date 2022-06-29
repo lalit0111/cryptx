@@ -22,14 +22,15 @@ body {
   display: flex;
   justify-content: space-between;
   padding-bottom: 12px;
-  padding-top: 12px;
   padding-left: 10px;
+  align-items: center;
   background-color: $primary-light-color;
 
   .logo {
     align-items: start;
     font-size: 26px;
     font-weight: 700;
+    padding-top: 5px;
 
     span {
       font-size: 30px;
@@ -40,22 +41,40 @@ body {
   .btn-container {
     display: flex;
     gap: 20px;
+    margin-top: 10px;
     align-items: center;
     margin-right: 60px;
+    position: relative;
 
-    .currency-menu {
-      display: flex;
-      font-size: 12px;
-      font-weight: 600;
-      color: $primary-color;
-      border-radius: $button-radius;
-      border: solid 1px $primary-color;
-      gap: 5px;
-      margin-right: 20px;
-      padding: 5px 10px;
-      align-items: center;
+    .dropdown {
+      button {
+        svg {
+          margin-left: 5px;
+        }
+        &:active {
+          border: 2px solid $primary-color;
+        }
+        color: $primary-color;
+        background: $primary-light-color;
+        font-size: 12px;
+        font-weight: 500;
+        border: 2px solid $primary-color;
+      }
+
+      .dropdown-menu {
+        width: fit-content;
+        button {
+          display: block;
+          background-color: white;
+          border: none;
+          span {
+            font-weight: bold;
+          }
+          padding: 10px 20px;
+          color: $primary-color;
+        }
+      }
     }
-
     .register-btn {
       background-color: $primary-color;
       color: #fff;
@@ -128,6 +147,7 @@ body {
     margin-top: 15px;
     font-size: 12px;
     font-weight: 500;
+    margin-bottom: 0;
 
     span {
       font-weight: 700;
@@ -172,6 +192,7 @@ h2 {
   display: flex;
   background-color: #c4c4c4;
   justify-content: space-between;
+  align-items: center;
   padding: 12px 40px;
   margin-top: 40px;
 
@@ -182,28 +203,31 @@ h2 {
   div {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-right: 30px;
-    gap: 150px;
+    gap: 145px;
   }
 
   p {
     font-size: 13px;
     font-weight: 600;
+    margin: 0;
   }
 }
 
 .coin-info-item {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   margin-top: 20px;
+  padding: 0;
 
   li {
     display: flex;
     flex-direction: column;
     gap: 10px;
 
-    .container {
+    .coin-container {
       display: flex;
       align-items: center;
 
@@ -215,6 +239,7 @@ h2 {
       p {
         font-size: 13px;
         font-weight: 600;
+        margin: 0;
       }
 
       div {
@@ -232,9 +257,17 @@ h2 {
         gap: 20px;
         align-items: center;
         margin-left: 100px;
+        flex: 0 0 200px;
+        justify-content: space-between;
 
-        :last-child {
-          margin-left: 100px;
+        div {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+
+        .symbol {
+          // margin-left: 100px;
           font-size: 10px;
           color: #475569;
         }
@@ -243,9 +276,9 @@ h2 {
       .div-3 {
         justify-content: space-between;
         justify-self: flex-end;
+        gap: 170px;
         margin-left: auto;
-        gap: 140px;
-        padding-right: 40px;
+        padding-right: 50px;
         align-items: center;
       }
     }
@@ -255,6 +288,118 @@ h2 {
       background-color: #c4c4c4;
       margin: 2px 50px;
       justify-self: center;
+    }
+  }
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+
+  .pagination {
+    li {
+      a {
+        background-color: white;
+        color: $primary-color;
+      }
+    }
+  }
+
+  .pagination {
+    .active {
+      a {
+        color: white;
+        background-color: $primary-color;
+        border: 1px solid $primary-color;
+      }
+    }
+  }
+}
+
+.item-info-container {
+  display: flex;
+  margin-top: 10px;
+
+  .info-item-seperator {
+    border: 1px solid rgba(5, 150, 105, 0.27);
+    background-color: $primary-light-color;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .info-item-div1 {
+    flex: 0 0 25%;
+    margin-left: 40px;
+    .info-item-div1-div1 {
+      flex-direction: column;
+      display: flex;
+      margin-top: 40px;
+      gap: 20px;
+      align-items: center;
+      h2 {
+        font-size: 30px;
+        letter-spacing: 1.5px;
+        font-weight: 900;
+        color: $primary-dark;
+      }
+
+      p {
+        color: $primary-dark;
+        font-size: 12px;
+      }
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .info-item-div1-div2 {
+      flex-direction: column;
+      display: flex;
+      margin-top: 40px;
+      gap: 20px;
+      h3 {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      span {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .info-item-div2 {
+    display: flex;
+    flex: 0 0 65%;
+    gap: 20px;
+    flex-direction: column;
+
+    .info-item-div2-button-container {
+      display: flex;
+      gap: 10px;
+      margin-left: 20px;
+
+      .register-btn {
+        background-color: white;
+        color: $primary-color;
+        border-radius: $button-radius;
+        padding: 6px 22px;
+        font-size: 13px;
+        font-weight: bold;
+        border: 2px solid $primary-color;
+        letter-spacing: 0.5px;
+        text-align: center;
+
+        &:hover {
+          background-color: $primary-color;
+          color: white;
+        }
+      }
     }
   }
 }

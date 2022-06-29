@@ -1,11 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CoinInfoItem from "../components/CoinInfoItem";
 import SingleCurrency from "../components/SingleCurrency";
+import Pagination from "../components/Pagination";
+import axios from "axios";
+import { CoinList, TrendingCoins } from "../config/api.js";
+import { CryptoState } from "../CryptoContext";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  const { currency } = CryptoState();
+
+  const [trending, setTrending] = useState([]);
+  const fetchTrendingCoins = async () => {
+    const { data } = await axios.get(TrendingCoins(currency));
+    setTrending(data);
+    console.log(data);
+  };
+
+  const [allCoins, setAllCoins] = useState([]);
+  const fetchAllCoins = async () => {
+    const { data } = await axios.get(CoinList(currency));
+    setAllCoins(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchTrendingCoins();
+    fetchAllCoins();
+  }, [currency]);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -64,14 +91,19 @@ const Home = () => {
 
       <div className="slider-container">
         <Slider {...settings}>
-          <SingleCurrency />
-          <SingleCurrency />
-          <SingleCurrency />
-          <SingleCurrency />
-          <SingleCurrency />
-          <SingleCurrency />
-          <SingleCurrency />
-          <SingleCurrency />
+          {trending.map((singleCoin, index) => {
+            const { name, image, current_price, price_change_percentage_24h } =
+              singleCoin;
+            return (
+              <SingleCurrency
+                name={name}
+                image={image}
+                price_change_percentage_24h={price_change_percentage_24h}
+                current_price={current_price}
+                key={index}
+              />
+            );
+          })}
         </Slider>
       </div>
 
@@ -105,24 +137,29 @@ const Home = () => {
           <p>#</p>
           <p>Coin</p>
         </div>
-        <div>
+        <div className="desc-bar-second-half">
           <p>Price</p>
-          <p>1h</p>
           <p>24h</p>
+          <p>24h(Market Capital)</p>
           <p>Market Capital</p>
         </div>
       </div>
       <ol className="coin-info-item">
-        <CoinInfoItem />
-        <CoinInfoItem />
-        <CoinInfoItem />
-        <CoinInfoItem />
-        <CoinInfoItem />
-        <CoinInfoItem />
-        <CoinInfoItem />
+        {allCoins.map((coin, index) => {
+          return (
+            <Link
+              style={{ color: "inherit", textDecoration: "inherit" }}
+              to={`info/${coin.id}`}
+            >
+              <CoinInfoItem {...coin} />;
+            </Link>
+          );
+        })}
       </ol>
 
-      <div>//Pagination Component</div>
+      <div className="pagination-container">
+        <Pagination />
+      </div>
     </div>
   );
 };

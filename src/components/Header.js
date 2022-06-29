@@ -1,29 +1,47 @@
 import React from "react";
+import { CryptoState } from "../CryptoContext";
 
 const Header = () => {
+  const { currency, setCurrency } = CryptoState();
+
+  const handleOnClick = (e) => {
+    setCurrency(e.target.value);
+  };
+
   return (
     <div className="header-container">
       <h3 className="logo">
         Crypt<span>X</span>
       </h3>
       <div className="btn-container">
-        <div className="currency-menu">
-          <p>USD</p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-caret-down"
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#059669"
-            fill="#059669"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="true"
           >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)" />
-          </svg>
+            {currency}
+          </button>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <h6 className="dropdown-header">Select currency</h6>
+            <button
+              className="dropdown-item"
+              value={"INR"}
+              onClick={handleOnClick}
+            >
+              <span>₹ </span>INR
+            </button>
+            <button
+              className="dropdown-item"
+              value={"USD"}
+              onClick={handleOnClick}
+            >
+              <span>$ </span>USD
+            </button>
+          </div>
         </div>
         <button className="login-btn">Login</button>
         <button className="register-btn">Register</button>
