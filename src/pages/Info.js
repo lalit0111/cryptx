@@ -9,7 +9,6 @@ const Info = () => {
   const { id } = useParams();
   console.log(id);
   const [coin, setCoin] = useState();
-  const { currency } = CryptoState();
 
   const fetchCoin = async () => {
     const { data } = await axios.get(SingleCoin(id));
@@ -21,7 +20,12 @@ const Info = () => {
     fetchCoin();
   }, []);
 
-  if (!coin) return <h1>Loading</h1>;
+  if (!coin)
+    return (
+      <div className="loading spinner-border text-success" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
   return <div>{<ItemInfo coin={coin} />}</div>;
 };
 

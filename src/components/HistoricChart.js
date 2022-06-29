@@ -77,7 +77,11 @@ const HistoricChart = ({ coin }) => {
   }, [currency, days]);
 
   if (historicData.length === 0) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="loading spinner-border text-success" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
   } else {
     console.log("history");
   }

@@ -299,7 +299,7 @@ h2 {
 
   .pagination {
     li {
-      a {
+      button {
         background-color: white;
         color: $primary-color;
       }
@@ -402,4 +402,18 @@ h2 {
       }
     }
   }
+}
+
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
+
+.loading {
+  margin: auto;
 }

@@ -43,8 +43,8 @@ const Header = () => {
             </button>
           </div>
         </div>
-        <button className="login-btn">Login</button>
-        <button className="register-btn">Register</button>
+        {/* <button className="login-btn">Login</button>
+        <button className="register-btn">Register</button> */}
       </div>
     </div>
   );

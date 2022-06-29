@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CoinInfoItem from "../components/CoinInfoItem";
 import SingleCurrency from "../components/SingleCurrency";
-import Pagination from "../components/Pagination";
 import axios from "axios";
 import { CoinList, TrendingCoins } from "../config/api.js";
 import { CryptoState } from "../CryptoContext";
@@ -15,15 +14,28 @@ const Home = () => {
   const { currency } = CryptoState();
 
   const [trending, setTrending] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const [allCoins, setAllCoins] = useState([]);
+
+  const [page, setPage] = useState(1);
+
   const fetchTrendingCoins = async () => {
     const { data } = await axios.get(TrendingCoins(currency));
     setTrending(data);
     console.log(data);
   };
 
-  const [allCoins, setAllCoins] = useState([]);
+  const handleSearch = () => {
+    return allCoins.filter(
+      (coin) =>
+        coin.name.toLowerCase().includes(search) ||
+        coin.symbol.toLowerCase().includes(search)
+    );
+  };
+
   const fetchAllCoins = async () => {
-    const { data } = await axios.get(CoinList(currency));
+    const { data } = await axios.get(CoinList(currency, page));
     setAllCoins(data);
     console.log(data);
   };
@@ -95,13 +107,15 @@ const Home = () => {
             const { name, image, current_price, price_change_percentage_24h } =
               singleCoin;
             return (
-              <SingleCurrency
-                name={name}
-                image={image}
-                price_change_percentage_24h={price_change_percentage_24h}
-                current_price={current_price}
-                key={index}
-              />
+              <Link className="text-link" to={`info/${singleCoin.id}`}>
+                <SingleCurrency
+                  name={name}
+                  image={image}
+                  price_change_percentage_24h={price_change_percentage_24h}
+                  current_price={current_price}
+                  key={index}
+                />
+              </Link>
             );
           })}
         </Slider>
@@ -128,7 +142,13 @@ const Home = () => {
             <line x1="21" y1="21" x2="15" y2="15" />
           </svg>
 
-          <input placeholder="Search For Crypto-currency" />
+          <input
+            placeholder="Search For Crypto-currency"
+            onChange={(e) => {
+              setPage(1);
+              setSearch(e.target.value);
+            }}
+          />
         </div>
       </div>
 
@@ -145,20 +165,50 @@ const Home = () => {
         </div>
       </div>
       <ol className="coin-info-item">
-        {allCoins.map((coin, index) => {
-          return (
-            <Link
-              style={{ color: "inherit", textDecoration: "inherit" }}
-              to={`info/${coin.id}`}
-            >
-              <CoinInfoItem {...coin} />;
-            </Link>
-          );
-        })}
+        {handleSearch()
+          .slice((page - 1) * 10, (page - 1) * 10 + 10)
+          .map((coin, index) => {
+            return (
+              <Link className="text-link" to={`info/${coin.id}`}>
+                <CoinInfoItem {...coin} />;
+              </Link>
+            );
+          })}
       </ol>
 
       <div className="pagination-container">
-        <Pagination />
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item">
+              <button
+                class="page-link"
+                onClick={() => {
+                  if (page > 1) {
+                    setPage(page - 1);
+                  }
+                }}
+              >
+                Previous
+              </button>
+            </li>
+            <li class="page-item active">
+              <button class="page-link">
+                {page} <span class="sr-only"></span>
+              </button>
+            </li>
+            <li class="page-item">
+              <button class="page-link">.</button>
+            </li>
+            <li class="page-item">
+              <button class="page-link">.</button>
+            </li>
+            <li class="page-item">
+              <button class="page-link" onClick={() => setPage(page + 1)}>
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );

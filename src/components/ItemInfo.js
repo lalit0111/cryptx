@@ -4,20 +4,6 @@ import HistoricChart from "./HistoricChart";
 import { CryptoState } from "../CryptoContext";
 
 const ItemInfo = ({ coin }) => {
-  const { currency, symbol } = CryptoState();
-  useEffect(() => {}, [currency]);
-
-  if (!coin) {
-    return <h1>Loading</h1>;
-  } else {
-    console.log(coin);
-  }
-
-  function shorten(str, maxLen = 200, separator = " ") {
-    if (str.length <= maxLen) return str;
-    return str.substr(0, str.lastIndexOf(separator, maxLen));
-  }
-
   const converter = (num) => {
     var units = ["M", "B", "T", "Q"];
     var unit = Math.floor((num / 1.0e1).toFixed(0).toString().length);
@@ -26,12 +12,43 @@ const ItemInfo = ({ coin }) => {
     return x.toFixed(2) + " " + units[Math.floor(unit / 3) - 2];
   };
 
+  const { currency, symbol } = CryptoState();
+
   const price = coin.market_data.current_price;
-  const { [currency.toLowerCase()]: currency_price } = price;
+
+  const [currency_price, setCurrencyPrice] = useState(
+    price[currency.toLowerCase()]
+  );
 
   const market_cap = coin.market_data.market_cap;
-  const { [currency.toLowerCase()]: currency_market_cap } = market_cap;
-  const convertedMarketCap = converter(currency_market_cap);
+  const [currency_market_cap, setCurrencyMarketCap] = useState(
+    market_cap[currency.toLowerCase()]
+  );
+
+  const [convertedMarketCap, setConvertedMarketCap] = useState(
+    converter(currency_market_cap)
+  );
+
+  useEffect(() => {
+    setCurrencyPrice(price[currency.toLowerCase()]);
+    setCurrencyMarketCap(market_cap[currency.toLowerCase()]);
+    setConvertedMarketCap(converter(currency_market_cap));
+  }, [currency]);
+
+  if (!coin) {
+    return (
+      <div className="loading spinner-border text-success" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
+  } else {
+    console.log(coin);
+  }
+
+  function shorten(str, maxLen = 200, separator = " ") {
+    if (str.length <= maxLen) return str;
+    return str.substr(0, str.lastIndexOf(separator, maxLen));
+  }
 
   return (
     <div className="item-info-container">
